@@ -17,7 +17,7 @@ Compatible with Windows 7, 8, 10, and 11.
 
 # Summary
 
-**FileDialog** is a command line file dialog tool for use ine Windows scripts. It can provide a:
+**FileDialog** is a command line file dialog tool for use in Windows scripts. It can provide a:
 - File Open dialog
 - File Save dialog
 - Folder select dialog
@@ -33,7 +33,7 @@ Running **FileDialog** with no parameters will display the built-in help:
 Usage: FileDialog.exe DialogType [~DialogTitle] [StartPath] [DialogFilter] [Multi]
 DialogType must be one of: Open Save Folder
 Parameters may be specified in any order and are not case sensitive
-Prefix DialogTitle with ~ Example: ~Select an image file
+Prefix DialogTitle with ~ Example: ~"Select an image file"
 DialogTitle must be quoted if it contains spaces
 If StartPath is quoted, omit or double up trailing backslash
 Forward slashes may be used in place of backslash without any need to double up
@@ -41,7 +41,7 @@ Relative paths are supported (e.g. .\MyStuff or ..\MyStuff)
 StartPath may also be one of: Documents Libraries OneDrive Public ThisPC UserProfile
 Multiselect is supported for File Open dialogs and is off by default.
 Example: FileDialog.exe Open C:\Users "*.ini|*.ini" multi
-Example: FileDialog.exe Open C:\Users\ "*.ini|*.ini" "Select one or more INI files"
+Example: FileDialog.exe Open C:\Users\ "*.ini|*.ini" ~"Select one or more INI files"
 Example: FileDialog.exe Save "C:\Users" "Text files (*.txt)|*.txt"
 Example: FileDialog.exe Save "C:\Users\\" "Text files (*.txt)|*.txt"
 Example: FileDialog.exe Open "C:\Users" "Image Files(*.PNG;*.JPG)|*.PNG;*.JPG|All files (*.*)|*.*"
