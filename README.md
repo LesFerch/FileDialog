@@ -2,7 +2,7 @@
 
 [![image](https://user-images.githubusercontent.com/79026235/152910441-59ba653c-5607-4f59-90c0-bc2851bf2688.png)Download the zip file](https://github.com/LesFerch/FileDialog/releases/download/1.0.0/FileDialog.zip)
 
-## Windows command line wallpaper changer for multiple monitors
+## Windows command line file and folder dialog for use in scripts
 
 Compatible with Windows 7, 8, 10, and 11.
 
