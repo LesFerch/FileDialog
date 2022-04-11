@@ -109,7 +109,7 @@ namespace FileDialog
                 Console.WriteLine("Usage: FileDialog.exe DialogType [~DialogTitle] [StartPath] [DialogFilter] [Multi]");
                 Console.WriteLine("DialogType must be one of: Open Save Folder");
                 Console.WriteLine("Parameters may be specified in any order and are not case sensitive");
-                Console.WriteLine("Prefix DialogTitle with ~ Example: ~Select an image file");
+                Console.WriteLine("Prefix DialogTitle with ~ Example: ~\"Select an image file\"");
                 Console.WriteLine("DialogTitle must be quoted if it contains spaces");
                 Console.WriteLine("If StartPath is quoted, omit or double up trailing backslash");
                 Console.WriteLine("Forward slashes may be used in place of backslash without any need to double up");
@@ -117,7 +117,7 @@ namespace FileDialog
                 Console.WriteLine("StartPath may also be one of: Documents Libraries OneDrive Public ThisPC UserProfile");
                 Console.WriteLine("Multiselect is supported for File Open dialogs and is off by default.");
                 Console.WriteLine("Example: FileDialog.exe Open C:\\Users \"*.ini|*.ini\" multi");
-                Console.WriteLine("Example: FileDialog.exe Open C:\\Users\\ \"*.ini|*.ini\" \"Select one or more INI files\"");
+                Console.WriteLine("Example: FileDialog.exe Open C:\\Users\\ \"*.ini|*.ini\" ~\"Select one or more INI files\"");
                 Console.WriteLine("Example: FileDialog.exe Save \"C:\\Users\" \"Text files (*.txt)|*.txt\"");
                 Console.WriteLine("Example: FileDialog.exe Save \"C:\\Users\\\\\" \"Text files (*.txt)|*.txt\"");
                 Console.WriteLine("Example: FileDialog.exe Open \"C:\\Users\" \"Image Files(*.PNG;*.JPG)|*.PNG;*.JPG|All files (*.*)|*.*\"");
