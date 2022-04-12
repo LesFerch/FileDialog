@@ -34,19 +34,19 @@ namespace FileDialog
                 try { TestPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, args[i])); }
                 catch { }
                 if (System.IO.Directory.Exists(TestPath)) { StartPath = TestPath; }
-                else if (args[i].ToLower() == "open") { DialogType = "Open"; }
-                else if (args[i].ToLower() == "save") { DialogType = "Save"; }
-                else if (args[i].ToLower() == "folder") { DialogType = "Folder"; }
-                else if (args[i].ToLower() == "multi") { Multi = true; }
-                else if (args[i].ToLower() == "documents") { StartPath = "::{450D8FBA-AD25-11D0-98A8-0800361B1103}"; }
-                else if (args[i].ToLower() == "libraries") { StartPath = "::{031E4825-7B94-4dc3-B131-E946B44C8DD5}"; }
-                else if (args[i].ToLower() == "onedrive") { StartPath = "::{018D5C66-4533-4307-9B53-224DE2ED1FE6}"; }
-                else if (args[i].ToLower() == "public") { StartPath = "::{4336a54d-038b-4685-ab02-99bb52d3fb8b}"; }
-                else if (args[i].ToLower() == "thispc") { StartPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"; }
-                else if (args[i].ToLower() == "this pc") { StartPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"; }
-                else if (args[i].ToLower() == "userprofile") { StartPath = "::{59031a47-3f72-44a7-89c5-5595fe6b30ee}"; }
-                else if (args[i].Contains("|")) { FileFilter = args[i]; }
-                else if (args[i].Substring(0, 1) == "~") { DialogTitle = args[i].Substring(1); }
+                if (args[i].ToLower() == "open") { DialogType = "Open"; }
+                if (args[i].ToLower() == "save") { DialogType = "Save"; }
+                if (args[i].ToLower() == "folder") { DialogType = "Folder"; }
+                if (args[i].ToLower() == "multi") { Multi = true; }
+                if (args[i].ToLower() == "documents") { StartPath = "::{450D8FBA-AD25-11D0-98A8-0800361B1103}"; }
+                if (args[i].ToLower() == "libraries") { StartPath = "::{031E4825-7B94-4dc3-B131-E946B44C8DD5}"; }
+                if (args[i].ToLower() == "onedrive") { StartPath = "::{018D5C66-4533-4307-9B53-224DE2ED1FE6}"; }
+                if (args[i].ToLower() == "public") { StartPath = "::{4336a54d-038b-4685-ab02-99bb52d3fb8b}"; }
+                if (args[i].ToLower() == "thispc") { StartPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"; }
+                if (args[i].ToLower() == "this pc") { StartPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"; }
+                if (args[i].ToLower() == "userprofile") { StartPath = "::{59031a47-3f72-44a7-89c5-5595fe6b30ee}"; }
+                if (args[i].Contains("|")) { FileFilter = args[i]; }
+                if (args[i].Substring(0, 1) == "~") { DialogTitle = args[i].Substring(1); }
             }
             if (DialogType != "")
             {
