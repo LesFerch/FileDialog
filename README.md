@@ -65,24 +65,24 @@ Selected items are also written as a multi-string to HKCU\Software\FileDialog It
 ## Usage Examples
 
 Example 1:
-`FileDialog Open "%UserProfile%\Pictures\Misc" "Image Files(*.PNG;*.JPG)|*.PNG;*.JPG|All files (*.*)|*.*"`
+`FileDialog Open "%UserProfile%\Pictures\Misc" "Image Files(*.PNG;*.JPG)|*.PNG;*.JPG|All files (*.*)|*.*"`\
 ![image](https://user-images.githubusercontent.com/79026235/163309637-419b7aba-ec49-4d4a-b307-ce8ac0677f54.png)
 
 
 Example 2:
-`FileDialog Open "%UserProfile%\Documents" "Text Files|*.txt"`
+`FileDialog Open "%UserProfile%\Documents" "Text Files|*.txt"`\
 ![image](https://user-images.githubusercontent.com/79026235/163312124-804e5a58-eecb-46dc-b8dd-c52278567b7a.png)
 
 Example 3:
-`FileDialog Open "%UserProfile%\Documents" "Text Files|*.txt" Retro`
+`FileDialog Open "%UserProfile%\Documents" "Text Files|*.txt" Retro`\
 ![image](https://user-images.githubusercontent.com/79026235/163312322-16e9dedc-83a4-4eab-b312-7717ebe03c86.png)
 
 Example 4:
-`FileDialog Folder Downloads`
+`FileDialog Folder Downloads`\
 ![image](https://user-images.githubusercontent.com/79026235/163312451-88d5afc4-9ac6-4650-9165-3e2b4e28253c.png)
 
 Example 5:
-`FileDialog Folder "%UserProfile%\Downloads" Retro`
+`FileDialog Folder "%UserProfile%\Downloads" Retro`\
 ![image](https://user-images.githubusercontent.com/79026235/163312686-5bc42060-b1dc-40e6-aaf9-f0a5a7418557.png)
 \
 \
