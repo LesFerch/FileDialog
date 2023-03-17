@@ -39,7 +39,7 @@ If StartPath is quoted, omit or double up trailing backslash
 Forward slashes may be used in place of backslash without any need to double up
 Relative paths are supported (e.g. .\MyStuff or ..\MyStuff)
 StartPath may also be one of: Documents Libraries OneDrive Public ThisPC UserProfile
-Multiselect is supported for File Open dialogs and is OFF by default.
+Multiselect is supported for File Open and Folder dialogs and is OFF by default.
 The Retro parameter will give you old school Open, Save, and Folder select dialogs
 Microsoft's modern dialogs insist on going to Libraries for Documents, Pictures, and so on
 Use the Retro parameter to avoid Libraries
