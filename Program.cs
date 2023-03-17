@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Linq;
 
 namespace FileDialog
 {
@@ -127,13 +128,26 @@ namespace FileDialog
                         {
                             Title = DialogTitle,
                             InputPath = StartPath,
+                            Multiselect = Multi
                         };
                         if (fd.ShowDialog(IntPtr.Zero) == true)
-                        {
-                            fileName = fd.ResultPath;
-                            fileNames = fd.ResultPath;
-                            ItemList.Add(fd.ResultPath);
-                        }
+
+                            if (Multi)
+                            {
+                                foreach (String file in fd.ResultPaths)
+                                {
+                                    if (fileNames != "") { fileNames = fileNames + '"' + ',' + '"'; }
+                                    fileNames += file;
+                                    ItemList.Add(file);
+                                }
+
+                            }
+                            else
+                            {
+                                fileName = fd.ResultPath;
+                                fileNames = fileName;
+                                ItemList.Add(fileName);
+                            }
                     }
                 }
                 if (fileNames != "") { fileNames = '"' + fileNames + '"'; }
@@ -156,7 +170,7 @@ namespace FileDialog
                 Console.WriteLine(@"Forward slashes may be used in place of backslash without any need to double up");
                 Console.WriteLine(@"Relative paths are supported (e.g. .\MyStuff or ..\MyStuff)");
                 Console.WriteLine(@"Supported StartPath shortcuts: Documents Libraries OneDrive Public ThisPC UserProfile");
-                Console.WriteLine(@"Multiselect is supported for File Open dialogs and is OFF by default.");
+                Console.WriteLine(@"Multiselect is supported for File Open and Folder dialogs and is OFF by default.");
                 Console.WriteLine(@"The Retro parameter will give you old school Open, Save, and Folder select dialogs");
                 Console.WriteLine(@"Microsoft's modern dialogs insist on going to Libraries for Documents, Pictures, and so on");
                 Console.WriteLine(@"Use the Retro parameter to avoid Libraries");
@@ -183,10 +197,16 @@ namespace FileDialog
     public class FolderPicker
     //Courtesy of Simon Mourier https://stackoverflow.com/a/66187224/15764378
     {
-        public virtual string ResultPath { get; protected set; }
-        public virtual string ResultName { get; protected set; }
+        private readonly List<string> _resultPaths = new List<string>();
+        private readonly List<string> _resultNames = new List<string>();
+
+        public IReadOnlyList<string> ResultPaths => _resultPaths;
+        public IReadOnlyList<string> ResultNames => _resultNames;
+        public string ResultPath => ResultPaths.FirstOrDefault();
+        public string ResultName => ResultNames.FirstOrDefault();
         public virtual string InputPath { get; set; }
         public virtual bool ForceFileSystem { get; set; }
+        public virtual bool Multiselect { get; set; }
         public virtual string Title { get; set; }
         public virtual string OkButtonLabel { get; set; }
         public virtual string FileNameLabel { get; set; }
@@ -195,6 +215,11 @@ namespace FileDialog
             if (ForceFileSystem)
             {
                 options |= (int)FOS.FOS_FORCEFILESYSTEM;
+            }
+
+            if (Multiselect)
+            {
+                options |= (int)FOS.FOS_ALLOWMULTISELECT;
             }
             return options;
         }
@@ -235,24 +260,27 @@ namespace FileDialog
                 return null;
             if (CheckHr(hr, throwOnError) != 0)
                 return null;
-            if (CheckHr(dialog.GetResult(out var result), throwOnError) != 0)
+
+            if (CheckHr(dialog.GetResults(out var items), throwOnError) != 0)
                 return null;
-            if (CheckHr(result.GetDisplayName(SIGDN.SIGDN_DESKTOPABSOLUTEPARSING, out var path), throwOnError) != 0)
-                return null;
-            ResultPath = path;
-            if (CheckHr(result.GetDisplayName(SIGDN.SIGDN_DESKTOPABSOLUTEEDITING, out path), false) == 0)
+
+            items.GetCount(out var count);
+            for (var i = 0; i < count; i++)
             {
-                ResultName = path;
+                items.GetItemAt(i, out var item);
+                CheckHr(item.GetDisplayName(SIGDN.SIGDN_DESKTOPABSOLUTEPARSING, out var path), throwOnError);
+                CheckHr(item.GetDisplayName(SIGDN.SIGDN_DESKTOPABSOLUTEEDITING, out var name), throwOnError);
+                if (path != null || name != null)
+                {
+                    _resultPaths.Add(path);
+                    _resultNames.Add(name);
+                }
             }
             return true;
         }
         private static int CheckHr(int hr, bool throwOnError)
         {
-            if (hr != 0)
-            {
-                if (throwOnError)
-                    Marshal.ThrowExceptionForHR(hr);
-            }
+            if (hr != 0 && throwOnError) Marshal.ThrowExceptionForHR(hr);
             return hr;
         }
         [DllImport("shell32")]
@@ -261,10 +289,9 @@ namespace FileDialog
         private static extern IntPtr GetDesktopWindow();
         private const int ERROR_CANCELLED = unchecked((int)0x800704C7);
         [ComImport, Guid("DC1C5A9C-E88A-4dde-A5A1-60F82A20AEF7")] // CLSID_FileOpenDialog
-        private class FileOpenDialog
-        {
-        }
-        [ComImport, Guid("42f85136-db7e-439c-85f1-e4075d135fc8"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private class FileOpenDialog { }
+
+        [ComImport, Guid("d57c7288-d4ad-4768-be02-9d969532d960"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IFileOpenDialog
         {
             [PreserveSig] int Show(IntPtr parent); // IModalWindow
@@ -291,7 +318,7 @@ namespace FileDialog
             [PreserveSig] int SetClientGuid();  // not fully defined
             [PreserveSig] int ClearClientData();
             [PreserveSig] int SetFilter([MarshalAs(UnmanagedType.IUnknown)] object pFilter);
-            [PreserveSig] int GetResults([MarshalAs(UnmanagedType.IUnknown)] out object ppenum);
+            [PreserveSig] int GetResults(out IShellItemArray ppenum);
             [PreserveSig] int GetSelectedItems([MarshalAs(UnmanagedType.IUnknown)] out object ppsai);
         }
         [ComImport, Guid("43826D1E-E718-42EE-BC55-A1E261C37BFE"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -303,6 +330,19 @@ namespace FileDialog
             [PreserveSig] int GetAttributes();  // not fully defined
             [PreserveSig] int Compare();  // not fully defined
         }
+
+        [ComImport, Guid("b63ea76d-1f85-456f-a19c-48159efa858b"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface IShellItemArray
+        {
+            [PreserveSig] int BindToHandler();  // not fully defined
+            [PreserveSig] int GetPropertyStore();  // not fully defined
+            [PreserveSig] int GetPropertyDescriptionList();  // not fully defined
+            [PreserveSig] int GetAttributes();  // not fully defined
+            [PreserveSig] int GetCount(out int pdwNumItems);
+            [PreserveSig] int GetItemAt(int dwIndex, out IShellItem ppsi);
+            [PreserveSig] int EnumItems();  // not fully defined
+        }
+
         private enum SIGDN : uint
         {
             SIGDN_DESKTOPABSOLUTEEDITING = 0x8004c000,
