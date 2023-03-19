@@ -137,6 +137,7 @@ namespace FileDialog
                                 foreach (String file in fd.ResultPaths)
                                 {
                                     if (fileNames != "") { fileNames = fileNames + '"' + ',' + '"'; }
+                                    if (fileName == "") { fileName = file; }
                                     fileNames += file;
                                     ItemList.Add(file);
                                 }
