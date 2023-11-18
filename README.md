@@ -1,6 +1,6 @@
 # FileDialog
 
-[![image](https://user-images.githubusercontent.com/79026235/152910441-59ba653c-5607-4f59-90c0-bc2851bf2688.png)Download the zip file](https://github.com/LesFerch/FileDialog/releases/download/1.2.2/FileDialog.zip)
+[![image](https://user-images.githubusercontent.com/79026235/152910441-59ba653c-5607-4f59-90c0-bc2851bf2688.png)Download the zip file](https://github.com/LesFerch/FileDialog/releases/download/1.1.0/FileDialog.zip)
 
 ## Windows command line file and folder dialog for use in scripts
 
@@ -9,8 +9,8 @@ Compatible with Windows 7, 8, 10, and 11.
 # How to Download and Run
 
 1. Download the zip file using the link above.
-2. Extract **FileDialog.exe**.
-3. Open a Cmd prompt and run **FileDialog.exe** with no parameters to see the built-in help.
+2. Extract **FileDialog.exe**. The zip file includes both a console version and windows version.
+3. Open a Cmd prompt and run **FileDialog.exe** with no parameters to see the built-in help (or double-click the Windows version).
 5. Use **FileDialog.exe** in your scripts when you need a file open, file save, or folder select dialog.
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen anytime you download a new executable and may require extra steps to whitelist the file. In testing, no issues were encountered using Windows Defender on Windows 10 and 11, but a false positive "virus detected" occurred on Windows Server 2022.

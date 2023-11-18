@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Linq;
+using System.Drawing;
 
 namespace FileDialog
 {
@@ -162,38 +163,77 @@ namespace FileDialog
             }
             else
             {
-                Console.WriteLine(@"Usage: FileDialog DialogType [~DialogTitle] [StartPath] [DialogFilter] [Multi] [Retro]");
-                Console.WriteLine(@"DialogType must be one of: Open Save Folder");
-                Console.WriteLine(@"Parameters may be specified in any order and are not case sensitive");
-                Console.WriteLine(@"Prefix DialogTitle with ~ Example: ~""Select an image file""");
-                Console.WriteLine(@"Parameters must be quoted if they contains spaces");
-                Console.WriteLine(@"If StartPath is quoted, omit or double up trailing backslash");
-                Console.WriteLine(@"Forward slashes may be used in place of backslash without any need to double up");
-                Console.WriteLine(@"Relative paths are supported (e.g. .\MyStuff or ..\MyStuff)");
-                Console.WriteLine(@"Supported StartPath shortcuts: Documents Libraries OneDrive Public ThisPC UserProfile");
-                Console.WriteLine(@"Multiselect is supported for File Open and Folder dialogs and is OFF by default.");
-                Console.WriteLine(@"The Retro parameter will give you old school Open, Save, and Folder select dialogs");
-                Console.WriteLine(@"Microsoft's modern dialogs insist on going to Libraries for Documents, Pictures, and so on");
-                Console.WriteLine(@"Use the Retro parameter to avoid Libraries");
-                Console.WriteLine(@"The Retro parameter is ignored if using a StartPath shortcut");
-                Console.WriteLine(@"Environment variables are supported. Be sure to quote them if they contain spaces.");
-                Console.WriteLine(@"Example: FileDialog Open C:\Users ""*.ini|*.ini"" Multi");
-                Console.WriteLine(@"Example: FileDialog Open C:\Users\ ""*.ini|*.ini"" ~""Select an INI file""");
-                Console.WriteLine(@"Example: FileDialog Save ""C:\Users"" ""Text files (*.txt)|*.txt""");
-                Console.WriteLine(@"Example: FileDialog Save ""C:\Users\\"" ""Text files (*.txt)|*.txt""");
-                Console.WriteLine(@"Example: FileDialog Open ""C:\Users"" ""Image Files(*.PNG;*.JPG)|*.PNG;*.JPG|All files (*.*)|*.*""");
-                Console.WriteLine(@"Example: FileDialog Open UserProfile");
-                Console.WriteLine(@"Example: FileDialog Folder ThisPC");
-                Console.WriteLine(@"Example: FileDialog Open ""%UserProfile%\Pictures"" Retro");
-                Console.WriteLine(@"Example: FileDialog Open ""C:\Users\Public\Documents"" Retro");
-                Console.WriteLine(@"Example: FileDialog Open ""%LocalAppData%""");
-                Console.WriteLine(@"At start, ? is written to  HKCU\Software\FileDialog");
-                Console.WriteLine(@"On Cancel, '' is written to  HKCU\Software\FileDialog");
-                Console.WriteLine(@"Upon user selection, a single, unquoted item is written to HKCU\Software\FileDialog Default");
-                Console.WriteLine(@"Selected items are written in CSV format to the console and HKCU\Software\FileDialog ItemList");
-                Console.WriteLine(@"Selected items are also written as a multi-string to HKCU\Software\FileDialog ItemListM");
+                if (GetConsoleWindow() != IntPtr.Zero)
+                {
+                    Console.WriteLine(@"Usage: FileDialog DialogType [~DialogTitle] [StartPath] [DialogFilter] [Multi] [Retro]");
+                    Console.WriteLine(@"DialogType must be one of: Open Save Folder");
+                    Console.WriteLine(@"Parameters may be specified in any order and are not case sensitive");
+                    Console.WriteLine(@"Prefix DialogTitle with ~ Example: ~""Select an image file""");
+                    Console.WriteLine(@"Parameters must be quoted if they contains spaces");
+                    Console.WriteLine(@"If StartPath is quoted, omit or double up trailing backslash");
+                    Console.WriteLine(@"Forward slashes may be used in place of backslash without any need to double up");
+                    Console.WriteLine(@"Relative paths are supported (e.g. .\MyStuff or ..\MyStuff)");
+                    Console.WriteLine(@"Supported StartPath shortcuts: Documents Libraries OneDrive Public ThisPC UserProfile");
+                    Console.WriteLine(@"Multiselect is supported for File Open and Folder dialogs and is OFF by default.");
+                    Console.WriteLine(@"The Retro parameter will give you old school Open, Save, and Folder select dialogs");
+                    Console.WriteLine(@"Microsoft's modern dialogs insist on going to Libraries for Documents, Pictures, and so on");
+                    Console.WriteLine(@"Use the Retro parameter to avoid Libraries");
+                    Console.WriteLine(@"The Retro parameter is ignored if using a StartPath shortcut");
+                    Console.WriteLine(@"Environment variables are supported. Be sure to quote them if they contain spaces.");
+                    Console.WriteLine(@"Example: FileDialog Open C:\Users ""*.ini|*.ini"" Multi");
+                    Console.WriteLine(@"Example: FileDialog Open C:\Users\ ""*.ini|*.ini"" ~""Select an INI file""");
+                    Console.WriteLine(@"Example: FileDialog Save ""C:\Users"" ""Text files (*.txt)|*.txt""");
+                    Console.WriteLine(@"Example: FileDialog Save ""C:\Users\\"" ""Text files (*.txt)|*.txt""");
+                    Console.WriteLine(@"Example: FileDialog Open ""C:\Users"" ""Image Files(*.PNG;*.JPG)|*.PNG;*.JPG|All files (*.*)|*.*""");
+                    Console.WriteLine(@"Example: FileDialog Open UserProfile");
+                    Console.WriteLine(@"Example: FileDialog Folder ThisPC");
+                    Console.WriteLine(@"Example: FileDialog Open ""%UserProfile%\Pictures"" Retro");
+                    Console.WriteLine(@"Example: FileDialog Open ""C:\Users\Public\Documents"" Retro");
+                    Console.WriteLine(@"Example: FileDialog Open ""%LocalAppData%""");
+                    Console.WriteLine(@"At start, ? is written to  HKCU\Software\FileDialog");
+                    Console.WriteLine(@"On Cancel, '' is written to  HKCU\Software\FileDialog");
+                    Console.WriteLine(@"Upon user selection, a single, unquoted item is written to HKCU\Software\FileDialog Default");
+                    Console.WriteLine(@"Selected items are written in CSV format to the console and HKCU\Software\FileDialog ItemList");
+                    Console.WriteLine(@"Selected items are also written as a multi-string to HKCU\Software\FileDialog ItemListM");
+                }
+                else
+                {
+                    CustomMessageBox.Show("\nUsage: FileDialog DialogType [~DialogTitle] [StartPath] [DialogFilter] [Multi] [Retro]" +
+                        "\n\nDialogType must be one of: Open Save Folder" +
+                        "\n\nParameters may be specified in any order and are not case sensitive" +
+                        "\n\nPrefix DialogTitle with ~ Example: ~\"Select an image file\"" +
+                        "\n\nParameters must be quoted if they contain spaces" +
+                        "\n\nIf StartPath is quoted, omit or double up the trailing backslash" +
+                        "\n\nForward slashes may be used in place of backslashes without any need to double up" +
+                        "\n\nRelative paths are supported (e.g. .\\MyStuff or ..\\MyStuff)" +
+                        "\n\nSupported StartPath shortcuts: Documents Libraries OneDrive Public ThisPC UserProfile" +
+                        "\n\nMultiselect is supported for File Open and Folder dialogs and is OFF by default." +
+                        "\n\nThe Retro parameter will give you old-school Open, Save, and Folder select dialogs" +
+                        "\n\nMicrosoft's modern dialogs insist on going to Libraries for Documents, Pictures, and so on" +
+                        "\n\nUse the Retro parameter to avoid Libraries" +
+                        "\n\nThe Retro parameter is ignored if using a StartPath shortcut" +
+                        "\n\nEnvironment variables are supported. Be sure to quote them if they contain spaces." +
+                        "\n\nExample: FileDialog Open C:\\Users \"*.ini|*.ini\" Multi" +
+                        "\n\nExample: FileDialog Open C:\\Users\\ \"*.ini|*.ini\" ~\"Select an INI file\"" +
+                        "\n\nExample: FileDialog Save \"C:\\Users\" \"Text files (*.txt)|*.txt\"" +
+                        "\n\nExample: FileDialog Save \"C:\\Users\\\" \"Text files (*.txt)|*.txt\"" +
+                        "\n\nExample: FileDialog Open \"C:\\Users\" \"Image Files(*.PNG;*.JPG)|*.PNG;*.JPG|All files (*.*)|*.*\"" +
+                        "\n\nExample: FileDialog Open UserProfile" +
+                        "\n\nExample: FileDialog Folder ThisPC" +
+                        "\n\nExample: FileDialog Open \"%UserProfile%\\Pictures\" Retro" +
+                        "\n\nExample: FileDialog Open \"C:\\Users\\Public\\Documents\" Retro" +
+                        "\n\nExample: FileDialog Open \"%LocalAppData%\"" +
+                        "\n\nAt start, ? is written to HKCU\\Software\\FileDialog" +
+                        "\n\nOn Cancel, '' is written to HKCU\\Software\\FileDialog" +
+                        "\n\nUpon user selection, a single, unquoted item is written to HKCU\\Software\\FileDialog Default" +
+                        "\n\nSelected items are written to HKCU\\Software\\FileDialog ItemList" +
+                        "\n\nSelected items are also written as a multi-string to HKCU\\Software\\FileDialog ItemListM");
+                }
             }
         }
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
     }
     public class FolderPicker
     //Courtesy of Simon Mourier https://stackoverflow.com/a/66187224/15764378
@@ -384,4 +424,55 @@ namespace FileDialog
             FOS_SUPPORTSTREAMABLEITEMS = unchecked((int)0x80000000)
         }
     }
+
+    public class CustomMessageBox : Form
+    {
+        private Panel scrollPanel;
+        private Label messageLabel;
+
+        public CustomMessageBox(string message)
+        {
+            InitializeComponents();
+
+            // Set the message text
+            messageLabel.Text = message;
+
+            // Set the form properties
+            this.Text = "FileDialog";
+            this.Size = new Size(800, 600);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.ShowIcon = false;
+            this.Font = new Font("Consolas", 10);
+        }
+
+        private void InitializeComponents()
+        {
+            scrollPanel = new Panel();
+            scrollPanel.Dock = DockStyle.Fill; // The panel fills the entire form
+            scrollPanel.AutoScroll = true;
+
+            messageLabel = new Label();
+            messageLabel.AutoSize = true;
+            messageLabel.MaximumSize = new Size(this.Width - 40, 0); // Set max width for text wrapping
+            messageLabel.Location = new Point(0, 0);
+
+            scrollPanel.Controls.Add(messageLabel);
+            this.Controls.Add(scrollPanel);
+
+            // Adjust the layout when the form is resized
+            this.Resize += (sender, e) =>
+            {
+                messageLabel.MaximumSize = new Size(this.Width - 40, 0); // Adjust max width for wrapping
+            };
+        }
+
+        public static void Show(string message)
+        {
+            using (CustomMessageBox customMessageBox = new CustomMessageBox(message))
+            {
+                customMessageBox.ShowDialog();
+            }
+        }
+    }
+
 }
