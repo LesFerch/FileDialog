@@ -6,7 +6,7 @@
 
 Compatible with Windows 7, 8, 10, and 11.
 
-# How to Download and Run
+## How to Download and Run
 
 1. Download the zip file using the link above.
 2. Extract **FileDialog.exe**. The zip file includes both a console version and windows version.
@@ -15,18 +15,18 @@ Compatible with Windows 7, 8, 10, and 11.
 
 **Note**: Some antivirus software may falsely detect the download as a virus. This can happen anytime you download a new executable and may require extra steps to whitelist the file. In testing, no issues were encountered using Windows Defender on Windows 10 and 11, but a false positive "virus detected" occurred on Windows Server 2022.
 
-# Summary
+## Summary
 
 **FileDialog** is a command line file dialog tool for use in Windows scripts. It can provide a:
 - File Open dialog
 - File Save dialog
 - Folder select dialog
 
-# How to Use
+## How to Use
 
 **Filedialog.exe** is typically run from within a script (batch file, VBScript, PowerShell, etc.).
 
-## See the built in help
+### See the built in help
 
 Running **FileDialog** with no parameters will display the built-in help:
 ```
@@ -62,7 +62,7 @@ Selected items are also written as a multi-string to HKCU\Software\FileDialog It
 ```
 
 
-## Usage Examples
+### Usage Examples
 
 Example 1:
 `FileDialog Open "%UserProfile%\Pictures\Misc" "Image Files(*.PNG;*.JPG)|*.PNG;*.JPG|All files (*.*)|*.*"`\
