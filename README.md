@@ -1,6 +1,6 @@
 # FileDialog
 
-[![image](https://user-images.githubusercontent.com/79026235/152910441-59ba653c-5607-4f59-90c0-bc2851bf2688.png)Download the zip file](https://github.com/LesFerch/FileDialog/releases/download/1.3.0/FileDialog.zip)
+[![image](https://github.com/LesFerch/WinSetView/assets/79026235/0188480f-ca53-45d5-b9ff-daafff32869e)Download the zip file](https://github.com/LesFerch/FileDialog/releases/download/1.3.0/FileDialog.zip)
 
 ## Windows command line file and folder dialog for use in scripts
 
@@ -13,7 +13,7 @@ Compatible with Windows 7, 8, 10, and 11.
 3. Open a Cmd prompt and run **FileDialog.exe** with no parameters to see the built-in help (or double-click the Windows version).
 5. Use **FileDialog.exe** in your scripts when you need a file open, file save, or folder select dialog.
 
-**Note**: Some antivirus software may falsely detect the download as a virus. This can happen anytime you download a new executable and may require extra steps to whitelist the file. In testing, no issues were encountered using Windows Defender on Windows 10 and 11, but a false positive "virus detected" occurred on Windows Server 2022.
+**Note**: Some antivirus software may falsely detect the download as a virus. This can happen any time you download a new executable and may require extra steps to whitelist the file. In testing, no issues were encountered using Windows Defender on Windows 10 and 11, but a false positive "virus detected" occurred on Windows Server 2022.
 
 ## Summary
 
@@ -86,4 +86,4 @@ Example 5:
 ![image](https://user-images.githubusercontent.com/79026235/163312686-5bc42060-b1dc-40e6-aaf9-f0a5a7418557.png)
 \
 \
-[![image](https://user-images.githubusercontent.com/79026235/153264696-8ec747dd-37ec-4fc1-89a1-3d6ea3259a95.png)](https://github.com/LesFerch/FileDialog)
+[![image](https://github.com/LesFerch/WinSetView/assets/79026235/63b7acbc-36ef-4578-b96a-d0b7ea0cba3a)](https://github.com/LesFerch/FileDialog)
